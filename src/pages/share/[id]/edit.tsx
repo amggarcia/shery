@@ -1,5 +1,5 @@
-import ShareEditor from "~/components/ShareEditor";
+import ShareEditor from "~/components/share/ShareEditor";
 
-export default function EditNote() {
+export default function EditShare() {
   return <ShareEditor></ShareEditor>;
 }
