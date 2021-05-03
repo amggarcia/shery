@@ -1,21 +1,14 @@
 import admin from "firebase-admin";
-export const firebaseAdminConfig = {
-  type: process.env.FIREBASE_TYPE,
-  project_id: process.env.FIREBASE_PROJECT_ID,
-  private_key_id: process.env.FIREBASE_PRIVATE_KEY_ID,
-  private_key: process.env.FIREBASE_PRIVATE_KEY,
-  client_email: process.env.FIREBASE_CLIENT_EMAIL,
-  client_id: process.env.FIREBASE_CLIENT_ID,
-  auth_uri: process.env.FIREBASE_AUTH_URI,
-  token_uri: process.env.FIREBASE_TOKEN_URI,
-  auth_provider_x511_cert_url: process.env.FIREBASE_AUTH_PROVIDER_X511_CERT_URL,
-  client_x509_cert_url: process.env.FIREBASE_CLIENT_X509_CERT_URL,
+const firebaseAdminConfig = {
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  privateKey: process.env.FIREBASE_PRIVATE_KEY,
+  clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
 };
 
 function initializeFirebaseAdmin() {
   if (!admin.apps.length) {
     const firebaseAdmin = admin.initializeApp({
-      credential: admin.credential.cert(JSON.stringify(firebaseAdminConfig)),
+      credential: admin.credential.cert({ ...firebaseAdminConfig }),
     });
   }
   return admin;

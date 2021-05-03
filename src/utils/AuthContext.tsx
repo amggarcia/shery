@@ -7,29 +7,28 @@ import {
   useEffect,
   useState,
 } from "react";
+import nookies, { destroyCookie, setCookie } from "nookies";
 interface AuthContextType {
   user?: firebase.User;
 }
 
 const AuthContext = createContext<AuthContextType>({ user: null });
-
+const cookieName = "userToken";
 interface ProviderProps {
   children?: ReactNode;
 }
 export function AuthProvider({ children }: ProviderProps) {
   const [user, setUser] = useState<firebase.User>(null);
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user1) => {
-      console.log("CHANGES");
-      console.log(user1);
-      if (user1) {
-        try {
-          setUser(user1);
-          console.log("ss");
-        } catch (error) {
-          console.log(error);
-        }
-      } else setUser(null);
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const userToken = await user.getIdToken(true);
+        setCookie(null, cookieName, userToken, { path: "/" });
+        setUser(user);
+      } else {
+        setUser(null);
+        destroyCookie(null, cookieName, { path: "/" });
+      }
     });
     return unsubscribe;
   }, []);
