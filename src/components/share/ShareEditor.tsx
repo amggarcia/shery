@@ -3,7 +3,7 @@ import { useDocumentOnce } from "react-firebase-hooks/firestore";
 import { db } from "~/utils/FireBaseHelper";
 import FireBaseStatusInfo from "~/components/FirebaseStatusInfo";
 import { useForm } from "react-hook-form";
-import { Input } from "~/components/Input";
+import { Input } from "~/components/interface/Input";
 import { Button } from "~/components/interface/Button";
 import { EncryptData } from "~/utils/CryptoHelper";
 import { ShareType } from "~/types/ShareType";

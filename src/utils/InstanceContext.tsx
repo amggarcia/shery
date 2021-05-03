@@ -1,4 +1,4 @@
-import { Children, createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 export interface InstanceContextType {
   keyPair?: any;
   setKeyPair: (keyPair: any) => void;
