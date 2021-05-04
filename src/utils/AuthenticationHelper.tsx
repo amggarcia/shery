@@ -14,6 +14,7 @@ export const AuthenticatedRoute = async (
       },
     };
   } catch (error) {
+    console.log(error);
     return {
       redirect: {
         permanent: false,

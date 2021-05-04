@@ -7,7 +7,7 @@ const firebaseAdminConfig = {
 
 function initializeFirebaseAdmin() {
   if (!admin.apps.length) {
-    const firebaseAdmin = admin.initializeApp({
+    admin.initializeApp({
       credential: admin.credential.cert({ ...firebaseAdminConfig }),
     });
   }
