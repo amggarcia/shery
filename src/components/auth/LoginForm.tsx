@@ -3,7 +3,9 @@ import { Input } from "~/components/interface/Input";
 import { Button } from "~/components/interface/Button";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { AuthProvider, useAuth } from "~/utils/AuthContext";
+import { useAuth } from "~/utils/AuthContext";
+import { Card } from "~/components/interface/Card";
+import { useRouter } from "next/router";
 type LoginFormInputType = {
   email: string;
   password: string;
@@ -11,29 +13,34 @@ type LoginFormInputType = {
 export default function LoginForm() {
   const { register, handleSubmit } = useForm<LoginFormInputType>();
   const [authError, setAuthError] = useState<string>(undefined);
+  const router = useRouter();
   const submitHandler = async (data: LoginFormInputType) => {
+    setAuthError(undefined);
     auth
       .signInWithEmailAndPassword(data.email, data.password)
+      .then((userCredentials) => {
+        router.push("/share/create");
+      })
       .catch((error) => {
         console.log(error);
         setAuthError(error.message);
       });
   };
-
+  //Temp just for testing
   return (
-    <div>
-      <div>
-        <form onSubmit={handleSubmit(submitHandler)}>
-          <Input label="Email" type="email" {...register("email")}></Input>
-          <Input
-            label="Passwork"
-            type="password"
-            {...register("password")}
-          ></Input>
-          {authError && <div>{authError}</div>}
+    <Card>
+      <form onSubmit={handleSubmit(submitHandler)}>
+        <Input label="Email" type="email" {...register("email")}></Input>
+        <Input
+          label="Password"
+          type="password"
+          {...register("password")}
+        ></Input>
+        {authError && <div className="text-red-600">{authError}</div>}
+        <div className="grid gird-cols-1">
           <Button type="submit">Login</Button>
-        </form>
-      </div>
-    </div>
+        </div>
+      </form>
+    </Card>
   );
 }

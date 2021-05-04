@@ -12,13 +12,18 @@ export default function LocalQRCode(props: Props) {
       setUrlTarget(window.location.origin + props.targetRoute);
     }
   }, []);
-
+  function copyToClipBoard() {
+    navigator.clipboard.writeText(urlTarget);
+  }
   return (
     <div>
       {urlTarget && (
-        <div>
-          <QRCode value={urlTarget}></QRCode>
-          <p>{urlTarget}</p>
+        <div className="flex justify-center">
+          <QRCode
+            value={urlTarget}
+            onClick={copyToClipBoard}
+            className="ring-white ring-4 rounded-lg"
+          ></QRCode>
         </div>
       )}
     </div>

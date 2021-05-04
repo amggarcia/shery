@@ -7,6 +7,7 @@ import { Input } from "~/components/interface/Input";
 import { Button } from "~/components/interface/Button";
 import { EncryptData } from "~/utils/CryptoHelper";
 import { ShareType } from "~/types/ShareType";
+import { Card } from "~/components/interface/Card";
 type InputType = {
   shareData: string;
 };
@@ -23,16 +24,22 @@ export default function ShareEditor() {
     share.ref.update({ data: encryptedString });
   };
   return (
-    <div>
+    <Card>
       {share && (
         <div>
           <form onSubmit={handleSubmit(submitHandler)}>
-            <Input label="Data" type="text" {...register("shareData")}></Input>
-            <Button type="submit">Submit</Button>
+            <Input
+              label="Data to send"
+              type="text"
+              {...register("shareData")}
+            ></Input>
+            <div className="grid grid-cols-1">
+              <Button type="submit">Send Shery data</Button>
+            </div>
           </form>
         </div>
       )}
       <FireBaseStatusInfo loading={loading} error={error}></FireBaseStatusInfo>
-    </div>
+    </Card>
   );
 }

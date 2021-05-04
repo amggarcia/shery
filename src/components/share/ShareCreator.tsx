@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { db } from "~/utils/FireBaseHelper";
 import { ShareType } from "~/types/ShareType";
 import { GenerateKeyPair } from "~/utils/CryptoHelper";
+import SheryLogo from "~/components/logos/shery";
 export default function ShareCreator() {
   const router = useRouter();
   const instanceContext = useContext(InstanceContext);
@@ -26,13 +27,18 @@ export default function ShareCreator() {
 
   return (
     <Card title="testing">
-      <Button
-        onClick={() => {
-          createShare();
-        }}
-      >
-        Create new Shery
-      </Button>
+      <div className="flex justify-center">
+        <SheryLogo width="100" height="100"></SheryLogo>
+      </div>
+      <div className="grid grid-cols-1 mt-2">
+        <Button
+          onClick={() => {
+            createShare();
+          }}
+        >
+          Create new Shery
+        </Button>
+      </div>
     </Card>
   );
 }

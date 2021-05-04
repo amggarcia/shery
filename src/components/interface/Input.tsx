@@ -8,15 +8,17 @@ interface Props extends InputProps {
 export const Input = forwardRef<HTMLInputElement, Props>(
   ({ label, type = "text", ...props }, ref) => {
     return (
-      <div>
-        <div>{label}</div>
-        <input
-          type={type}
-          {...props}
-          ref={ref}
-          className="text-gray-700"
-        ></input>
-      </div>
+      <label>
+        <div className="font-semibold mb-1 ">{label}</div>
+        <div className="bg-gray-700 rounded-lg mb-2 ">
+          <input
+            type={type}
+            {...props}
+            ref={ref}
+            className="bg-gray-900 w-full rounded-lg"
+          ></input>
+        </div>
+      </label>
     );
   }
 );
