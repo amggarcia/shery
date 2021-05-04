@@ -16,10 +16,10 @@ export default function LoginForm() {
   const router = useRouter();
   const submitHandler = async (data: LoginFormInputType) => {
     setAuthError(undefined);
-    auth
+    await auth
       .signInWithEmailAndPassword(data.email, data.password)
       .then((userCredentials) => {
-        router.push("/share/create");
+        router.push("/");
       })
       .catch((error) => {
         console.log(error);
