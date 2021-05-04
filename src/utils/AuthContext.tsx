@@ -10,9 +10,13 @@ import {
 import nookies, { destroyCookie, setCookie } from "nookies";
 interface AuthContextType {
   user?: firebase.User;
+  logOut: () => void;
 }
 
-const AuthContext = createContext<AuthContextType>({ user: null });
+const AuthContext = createContext<AuthContextType>({
+  user: null,
+  logOut: () => {},
+});
 const cookieName = "userToken";
 interface ProviderProps {
   children?: ReactNode;
@@ -32,9 +36,13 @@ export function AuthProvider({ children }: ProviderProps) {
     });
     return unsubscribe;
   }, []);
-
+  const logOut = () => {
+    auth.signOut();
+  };
   return (
-    <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, logOut }}>
+      {children}
+    </AuthContext.Provider>
   );
 }
 

@@ -1,4 +1,4 @@
-import { Card } from "~/components/interface/Card";
-export default function Home() {
-  return <Card title="testing">Welcome to Shery</Card>;
+import Home from "~/components/Home";
+export default function HomePage() {
+  return <Home></Home>;
 }
