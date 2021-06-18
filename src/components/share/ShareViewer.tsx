@@ -53,6 +53,10 @@ export default function ShareViewer() {
             </div>
           )}
           <LocalQRCode targetRoute={`/share/${id}/edit`}></LocalQRCode>
+          <p className="text-center text-sm">
+            Use (or click to copy) the QR code URL to open a new instance of
+            Shery to share data from
+          </p>
         </div>
       )}
     </Card>
