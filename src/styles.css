@@ -4,18 +4,18 @@
 
 /* Apply basic global styles to the body: */
 body {
-	@apply bg-gray-900 text-gray-100 font-sans antialiased;
+  @apply bg-gray-900 text-gray-100 font-sans antialiased;
 }
 
 /* Remove trailing margin from forms for some browsers: */
 form {
-	margin-block-end: 0;
+  margin-block-end: 0;
 }
 
 /* This correctly styles the minimal progress bar that is displayed when navigating between pages */
 #nprogress {
-	@apply pointer-events-none z-50;
+  @apply pointer-events-none z-50;
 }
 #nprogress .bar {
-	@apply bg-brand-500 fixed z-50 top-0 left-0 w-full h-0.5;
+  @apply bg-brand-500 fixed z-50 top-0 left-0 w-full h-0.5;
 }

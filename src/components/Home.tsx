@@ -21,7 +21,12 @@ export default function Home() {
             <Button onClick={logOut}>Log out</Button>
           </div>
         )}
-        {!user && <Button href="/auth/login">Log in</Button>}
+        {!user && (
+          <div className="grid gird-cols-2 gap-4">
+            <Button href="/auth/login">Login</Button>
+            <Button href="/auth/signup">Signup</Button>
+          </div>
+        )}
       </div>
     </Card>
   );
