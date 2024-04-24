@@ -1,5 +1,6 @@
 import { ComponentProps } from "react";
-import Link from "next/link";
+import NextLink from "next/link";
+import { LinkProps } from "next/link";
 
 type ButtonProps = ComponentProps<"button"> & ComponentProps<"a">;
 
@@ -15,11 +16,11 @@ export function Button({ ...props }: Props) {
   );
 }
 
-function InnerButton({ href, ...props }: Props) {
+function InnerButton({ href, ...props }: Props | LinkProps) {
   const isLink = typeof href != "undefined";
   const ElementType = isLink ? "a" : "button";
-  const button = <ElementType {...props}></ElementType>;
+  const button = <ElementType {...(props as Props)}></ElementType>;
   if (isLink) {
-    return <Link href={href!} {...props}></Link>;
+    return <NextLink href={href!} {...(props as LinkProps)}></NextLink>;
   } else return button;
 }
