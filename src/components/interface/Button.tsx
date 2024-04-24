@@ -20,6 +20,6 @@ function InnerButton({ href, ...props }: Props) {
   const ElementType = isLink ? "a" : "button";
   const button = <ElementType {...props}></ElementType>;
   if (isLink) {
-    return <Link href={href!}>{button}</Link>;
+    return <Link href={href!} {...props}></Link>;
   } else return button;
 }
