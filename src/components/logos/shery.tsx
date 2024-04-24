@@ -1,7 +1,12 @@
-export default function SheryLogo({ width = "640", height = "640" }) {
+export default function SheryLogo({
+  width = "640",
+  height = "640",
+  className = "",
+}) {
   const viewBoxString = `0 0 ${width} ${height}`;
   return (
     <svg
+      className={className}
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       version="1.1"

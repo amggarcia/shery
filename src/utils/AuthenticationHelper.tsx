@@ -26,3 +26,20 @@ export const AuthenticatedRoute = async (
     };
   }
 };
+
+export const UnAuthenticatedRoute = async (
+  context: GetServerSidePropsContext
+) => {
+  let cookies = nookies.get(context);
+  if (cookies.userToken) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/",
+      },
+      props: {} as never,
+    };
+  } else {
+    return { props: {} as never };
+  }
+};
