@@ -14,18 +14,25 @@ export default function LoginForm() {
   const { register, handleSubmit } = useForm<LoginFormInputType>();
   const [authError, setAuthError] = useState<string>(undefined);
   const router = useRouter();
+
   const submitHandler = async (data: LoginFormInputType) => {
     setAuthError(undefined);
     await auth
       .signInWithEmailAndPassword(data.email, data.password)
       .then((userCredentials) => {
-        router.push("/");
+        console.log("Going to route shit");
+        console.log(router.query.from);
+        if (!router.query.from) {
+          router.push("/");
+        } else {
+          router.push(decodeURIComponent(router.query.from as string));
+        }
       })
       .catch((error) => {
-        console.log(error);
         setAuthError(error.message);
       });
   };
+
   //Temp just for testing
   return (
     <Card>

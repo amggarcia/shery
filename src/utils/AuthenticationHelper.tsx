@@ -18,7 +18,9 @@ export const AuthenticatedRoute = async (
     return {
       redirect: {
         permanent: false,
-        destination: "/auth/login",
+        destination: `/auth/login?from=${encodeURIComponent(
+          context.resolvedUrl
+        )}`,
       },
       props: {} as never,
     };

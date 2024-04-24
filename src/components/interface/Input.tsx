@@ -10,12 +10,12 @@ export const Input = forwardRef<HTMLInputElement, Props>(
     return (
       <label>
         <div className="font-semibold mb-1 ">{label}</div>
-        <div className="bg-gray-700 rounded-lg mb-2 ">
+        <div className="bg-zinc-700 rounded-lg mb-2 ">
           <input
             type={type}
             {...props}
             ref={ref}
-            className="bg-gray-900 w-full rounded-lg"
+            className="bg-zinc-900 w-full rounded-lg"
           ></input>
         </div>
       </label>

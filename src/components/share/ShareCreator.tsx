@@ -6,8 +6,10 @@ import { useContext } from "react";
 import { db } from "~/utils/FireBaseHelper";
 import { ShareType } from "~/types/ShareType";
 import { GenerateKeyPair } from "~/utils/CryptoHelper";
+import { useAuth } from "~/utils/AuthContext";
 import SheryLogo from "~/components/logos/shery";
 export default function ShareCreator() {
+  const { logOut } = useAuth();
   const router = useRouter();
   const instanceContext = useContext(InstanceContext);
   const collectionRef = db.collection("share");
@@ -38,6 +40,7 @@ export default function ShareCreator() {
         >
           Create new Shery
         </Button>
+        <Button onClick={logOut}>Log out</Button>
       </div>
     </Card>
   );

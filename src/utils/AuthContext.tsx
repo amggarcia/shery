@@ -7,6 +7,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { useRouter } from "next/router";
 import nookies, { destroyCookie, setCookie } from "nookies";
 interface AuthContextType {
   user?: firebase.User;
@@ -22,6 +23,7 @@ interface ProviderProps {
   children?: ReactNode;
 }
 export function AuthProvider({ children }: ProviderProps) {
+  const router = useRouter();
   const [user, setUser] = useState<firebase.User>(null);
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -38,6 +40,7 @@ export function AuthProvider({ children }: ProviderProps) {
   }, []);
   const logOut = () => {
     auth.signOut();
+    router.push("/");
   };
   return (
     <AuthContext.Provider value={{ user, logOut }}>

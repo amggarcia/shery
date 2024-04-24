@@ -9,7 +9,7 @@ module.exports = {
   mode: "jit",
   // Inform Tailwind of where our classes will be defined:
   // https://tailwindcss.com/docs/optimizing-for-production
-  purge: ["./src/**/*.{js,ts,jsx,tsx}"],
+  content: ["./src/**/*.{js,ts,jsx,tsx}"],
 
   theme: {
     extend: {
