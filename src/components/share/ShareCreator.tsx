@@ -11,7 +11,7 @@ import SheryLogo from "~/components/logos/shery";
 export default function ShareCreator() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { logOut } = useAuth();
+  const { user } = useAuth();
   const router = useRouter();
   const instanceContext = useContext(InstanceContext);
   const collectionRef = db.collection("share");
@@ -26,6 +26,7 @@ export default function ShareCreator() {
           publicKey: keyPair.exportKey("public"),
           status: "created",
           validUntil: null,
+          createdBy: user.uid,
         };
         const newShare = await collectionRef.add(shareToUpload);
         router.push(`/share/${newShare.id}`);

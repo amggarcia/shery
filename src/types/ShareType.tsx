@@ -3,4 +3,5 @@ export type ShareType = {
   publicKey: string;
   status: "created" | "edited" | "delete";
   validUntil: string;
+  createdBy: string;
 };
