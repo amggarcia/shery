@@ -30,7 +30,7 @@ export default function ShareEditor() {
           <form onSubmit={handleSubmit(submitHandler)}>
             <Input
               label="Data to send"
-              type="text"
+              type="password"
               {...register("shareData")}
             ></Input>
             <div className="grid grid-cols-1">
