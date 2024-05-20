@@ -1,5 +1,7 @@
 import { ShareType } from "~/types/ShareType";
 import { Input } from "~/components/interface/Input";
+import { useState } from "react";
+import { Button } from "../interface/Button";
 
 interface Props {
   share?: ShareType;
@@ -9,6 +11,19 @@ interface Props {
 
 export default function ShareData(props: Props) {
   const { share, decryptedData } = props;
+  const [inputType, setInputType] = useState("password");
+
+  function toggleInputType() {
+    if (inputType === "password") {
+      setInputType("text");
+    } else setInputType("password");
+  }
+
+  function copyToClipBoard() {
+    if (navigator && navigator.clipboard)
+      navigator.clipboard.writeText(decryptedData);
+  }
+
   return (
     <div>
       {props.share && props.share.data && !decryptedData && (
@@ -22,10 +37,18 @@ export default function ShareData(props: Props) {
         <div>
           <Input
             readOnly
-            type="text"
+            type={inputType}
             label="Shery information"
             value={decryptedData}
           ></Input>
+          <div className="flex justify-between space-x-4">
+            <Button className="flex-1" onClick={toggleInputType}>
+              Display Text
+            </Button>
+            <Button className="flex-1" onClick={copyToClipBoard}>
+              Copy to Clipboard
+            </Button>
+          </div>
         </div>
       )}
     </div>

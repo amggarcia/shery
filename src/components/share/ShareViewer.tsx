@@ -12,7 +12,7 @@ import LocalQRCode from "~/components/LocalQRCode";
 import ShareData from "./ShareData";
 import { Card } from "~/components/interface/Card";
 export default function ShareViewer() {
-  const [decryptedText, setDecryptedText] = useState("");
+  const [decryptedText, setDecryptedText] = useState<string>(null);
   const router = useRouter();
   const context = useContext(InstanceContext);
   const { id } = router.query;
@@ -22,7 +22,7 @@ export default function ShareViewer() {
   );
 
   useEffect(() => {
-    setDecryptedText(undefined);
+    setDecryptedText(null);
   }, [share]);
 
   async function decryptData() {
@@ -40,9 +40,9 @@ export default function ShareViewer() {
             error={error}
             loading={loading}
           ></FireBaseStatusInfo>
-          {share && share.data && (
+          {share && share.data && !decryptedText && (
             <div className="grid grid-cols-1">
-              <Button onClick={() => decryptData()}>DecryptText</Button>
+              <Button onClick={() => decryptData()}>Decrypt Text</Button>
             </div>
           )}
           {share && !share.data && (
