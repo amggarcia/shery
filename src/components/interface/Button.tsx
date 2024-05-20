@@ -1,7 +1,7 @@
 import { ComponentProps } from "react";
 import NextLink from "next/link";
 import { LinkProps } from "next/link";
-import { clsx } from "clsx/lite";
+import { clsx } from "clsx";
 
 type ButtonProps = ComponentProps<"button"> & ComponentProps<"a">;
 
