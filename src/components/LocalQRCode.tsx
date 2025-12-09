@@ -1,4 +1,4 @@
-import QRCode from "qrcode.react";
+import { QRCodeSVG } from "qrcode.react";
 import { useEffect, useState } from "react";
 
 interface Props {
@@ -19,11 +19,11 @@ export default function LocalQRCode(props: Props) {
     <div>
       {urlTarget && (
         <div className="flex justify-center">
-          <QRCode
+          <QRCodeSVG
             value={urlTarget}
             onClick={copyToClipBoard}
             className="ring-white ring-4 rounded-lg"
-          ></QRCode>
+          />
         </div>
       )}
     </div>

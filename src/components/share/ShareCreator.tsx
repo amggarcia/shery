@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { InstanceContext } from "~/utils/InstanceContext";
 import { useContext, useEffect, useState } from "react";
 import { db } from "~/utils/FireBaseHelper";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { ShareType } from "~/types/ShareType";
 import { GenerateKeyPair } from "~/utils/CryptoHelper";
 import { useAuth } from "~/utils/AuthContext";
@@ -14,7 +15,7 @@ export default function ShareCreator() {
   const { user } = useAuth();
   const router = useRouter();
   const instanceContext = useContext(InstanceContext);
-  const collectionRef = db.collection("share");
+  const collectionRef = collection(db, "share");
   useEffect(() => {
     async function createShare() {
       try {
@@ -27,8 +28,9 @@ export default function ShareCreator() {
           status: "created",
           validUntil: null,
           createdBy: user.uid,
+          createdAt: serverTimestamp(),
         };
-        const newShare = await collectionRef.add(shareToUpload);
+        const newShare = await addDoc(collectionRef, shareToUpload);
         router.push(`/share/${newShare.id}`);
         return { success: true };
       } catch (error) {

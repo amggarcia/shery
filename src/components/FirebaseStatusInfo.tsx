@@ -1,7 +1,7 @@
-import firebase from "firebase";
+import { FirebaseError } from "firebase/app";
 export interface Props {
   loading: boolean;
-  error: firebase.FirebaseError;
+  error: FirebaseError;
 }
 
 export default function FireBaseStatusInfo(props: Props) {

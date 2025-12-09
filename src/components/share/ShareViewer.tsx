@@ -6,6 +6,7 @@ import { Button } from "~/components/interface/Button";
 import { useRouter } from "next/router";
 import { useDocument, useDocumentData } from "react-firebase-hooks/firestore";
 import { db } from "~/utils/FireBaseHelper";
+import { doc } from "firebase/firestore";
 import FireBaseStatusInfo from "~/components/FirebaseStatusInfo";
 import ContextStatus from "~/components/ContextStatus";
 import LocalQRCode from "~/components/LocalQRCode";
@@ -17,8 +18,8 @@ export default function ShareViewer() {
   const context = useContext(InstanceContext);
   const { id } = router.query;
 
-  const [share, loading, error] = useDocumentData<ShareType>(
-    db.doc(`share/${id}`)
+  const [share, loading, error] = useDocumentData(
+    doc(db, `share/${id}`)
   );
 
   useEffect(() => {
@@ -26,7 +27,7 @@ export default function ShareViewer() {
   }, [share]);
 
   async function decryptData() {
-    const decryptedData = DecryptData(context.keyPair, share.data);
+    const decryptedData = DecryptData(context.keyPair, (share as ShareType).data);
     setDecryptedText(decryptedData);
   }
 
@@ -35,17 +36,17 @@ export default function ShareViewer() {
       <ContextStatus></ContextStatus>
       {context.keyPair && (
         <div className="space-y-5">
-          <ShareData share={share} decryptedData={decryptedText}></ShareData>
+          <ShareData share={share as ShareType} decryptedData={decryptedText}></ShareData>
           <FireBaseStatusInfo
             error={error}
             loading={loading}
           ></FireBaseStatusInfo>
-          {share && share.data && !decryptedText && (
+          {share && (share as ShareType).data && !decryptedText && (
             <div className="grid grid-cols-1">
               <Button onClick={() => decryptData()}>Decrypt Text</Button>
             </div>
           )}
-          {share && !share.data && (
+          {share && !(share as ShareType).data && (
             <div className="flex justify-center bg-yellow-400 bg-opacity-80 rounded-xl p-2">
               <p className="font-semibold text-3xl">
                 Waiting for shery data...

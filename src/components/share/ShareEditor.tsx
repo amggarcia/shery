@@ -8,20 +8,22 @@ import { Button } from "~/components/interface/Button";
 import { EncryptData } from "~/utils/CryptoHelper";
 import { ShareType } from "~/types/ShareType";
 import { Card } from "~/components/interface/Card";
+import { doc, updateDoc } from "firebase/firestore";
+
 type InputType = {
   shareData: string;
 };
 export default function ShareEditor() {
   const router = useRouter();
   const { id } = router.query;
-  const [share, loading, error] = useDocumentOnce<ShareType>(
-    db.doc(`share/${id}`)
+  const [share, loading, error] = useDocumentOnce(
+    doc(db, `share/${id}`)
   );
   const { register, handleSubmit } = useForm<InputType>();
   const submitHandler = async (data: InputType) => {
-    const shareData = share.data();
+    const shareData = share.data() as ShareType;
     const encryptedString = EncryptData(shareData.publicKey, data.shareData);
-    share.ref.update({ data: encryptedString });
+    await updateDoc(doc(db, `share/${id}`), { data: encryptedString });
   };
   return (
     <Card>

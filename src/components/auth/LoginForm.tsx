@@ -1,4 +1,5 @@
 import { auth } from "~/utils/FireBaseHelper";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { Input } from "~/components/interface/Input";
 import { Button } from "~/components/interface/Button";
 import { useForm } from "react-hook-form";
@@ -17,8 +18,7 @@ export default function LoginForm() {
 
   const submitHandler = async (data: LoginFormInputType) => {
     setAuthError(undefined);
-    await auth
-      .signInWithEmailAndPassword(data.email, data.password)
+    await signInWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredentials) => {
         console.log("Going to route shit");
         console.log(router.query.from);

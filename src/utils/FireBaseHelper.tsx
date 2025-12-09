@@ -1,4 +1,6 @@
-import firebase from "firebase";
+import { initializeApp, getApps } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 export const fireBaseConfig = {
   //TODO : Moove this to env
@@ -12,12 +14,13 @@ export const fireBaseConfig = {
 
 function initFirebase() {
   // Initialize Firebase
-  if (!firebase.apps.length) {
-    firebase.initializeApp(fireBaseConfig);
+  if (!getApps().length) {
+    initializeApp(fireBaseConfig);
     // firebase.analytics();
   }
-  return firebase;
 }
 
-export const db = initFirebase().firestore();
-export const auth = initFirebase().auth();
+initFirebase();
+
+export const db = getFirestore();
+export const auth = getAuth();

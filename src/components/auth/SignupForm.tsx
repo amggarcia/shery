@@ -1,4 +1,5 @@
 import { auth } from "~/utils/FireBaseHelper";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Input } from "~/components/interface/Input";
 import { Button } from "~/components/interface/Button";
 import { useForm } from "react-hook-form";
@@ -18,8 +19,7 @@ export default function SignupForm() {
   const router = useRouter();
   const submitHandler = async (data: SignupFormInputType) => {
     setAuthError(undefined);
-    await auth
-      .createUserWithEmailAndPassword(data.email, data.password)
+    await createUserWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredentials) => {
         router.push("/");
       })
