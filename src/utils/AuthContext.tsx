@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 import { useRouter } from "next/router";
-import nookies, { destroyCookie, setCookie } from "nookies";
+import Cookies from 'universal-cookie';
 interface AuthContextType {
   user?: User | null;
   logOut: () => void;
@@ -25,15 +25,17 @@ interface ProviderProps {
 export function AuthProvider({ children }: ProviderProps) {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
+  const cookies = new Cookies();
+  
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         const userToken = await user.getIdToken(true);
-        setCookie(null, cookieName, userToken, { path: "/" });
+        cookies.set(cookieName, userToken, { path: "/" });
         setUser(user);
       } else {
         setUser(null);
-        destroyCookie(null, cookieName, { path: "/" });
+        cookies.remove(cookieName, { path: "/" });
       }
     });
     return unsubscribe;

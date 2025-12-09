@@ -1,11 +1,11 @@
 import { GetServerSidePropsContext } from "next";
 import { auth } from "~/utils/FirebaseAdminHelper";
-import nookies from "nookies";
+import { parse } from 'cookie';
 export const AuthenticatedRoute = async (
   context: GetServerSidePropsContext
 ) => {
   try {
-    let cookies = nookies.get(context);
+    const cookies = parse(context.req.headers.cookie || '');
     const { uid } = await auth.verifyIdToken(cookies.userToken);
 
     return {
@@ -30,7 +30,7 @@ export const AuthenticatedRoute = async (
 export const UnAuthenticatedRoute = async (
   context: GetServerSidePropsContext
 ) => {
-  let cookies = nookies.get(context);
+  const cookies = parse(context.req.headers.cookie || '');
   if (cookies.userToken) {
     return {
       redirect: {
